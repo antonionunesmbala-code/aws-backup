@@ -1,0 +1,40 @@
+Parameters:
+  VaultName:
+    Type: String
+    Description: The name of the AWS Backup Vault to create
+  VaultLockChangeableDays:
+    Type: Number
+    Default: "0"
+  VaultLockMinRetentionDays:
+    Type: Number
+    Default: "0"
+  VaultLockMaxRetentionDays:
+    Type: Number
+    Default: "0"
+
+Conditions:
+  CreateVaultLockChangeable: !Not [!Equals [!Ref VaultLockChangeableDays, 0]]
+  CreateVaultLockMinRetention: !Not [!Equals [!Ref VaultLockMinRetentionDays, 0]]
+  CreateVaultLockMaxRetention: !Not [!Equals [!Ref VaultLockMaxRetentionDays, 0]]
+  CreateLock: !Or
+    - Condition: CreateVaultLockChangeable
+    - Condition: CreateVaultLockMinRetention
+    - Condition: CreateVaultLockMaxRetention
+
+Resources:
+  VaultKey:
+    Type: AWS::KMS::Key
+
+  Vault:
+    Type: AWS::Backup::BackupVault
+    Properties:
+      BackupVaultName: !Ref VaultName
+      EncryptionKeyArn: !GetAtt VaultKey.Arn
+      LockConfiguration:
+        !If
+          - CreateLock
+          -
+            ChangeableForDays: !If [CreateVaultLockChangeable, !Ref VaultLockChangeableDays, !Ref AWS::NoValue]
+            MinRetentionDays: !If [CreateVaultLockMinRetention, !Ref VaultLockMinRetentionDays, !Ref AWS::NoValue]
+            MaxRetentionDays: !If [CreateVaultLockMaxRetention, !Ref VaultLockMaxRetentionDays, !Ref AWS::NoValue]
+          - !Ref AWS::NoValue
