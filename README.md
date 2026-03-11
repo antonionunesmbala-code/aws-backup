@@ -10,7 +10,7 @@
 
 ## Architecture
 
-The following diagram illustrates the centralized AWS Backup architecture implemented in this project.
+O diagrama seguinte ilustra a arquitetura centralizada de backups AWS implementada neste projeto.
 
 ![AWS Backup Architecture](docs/diagrams/backup-architecture.png)
 
