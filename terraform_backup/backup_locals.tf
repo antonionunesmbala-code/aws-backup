@@ -1,6 +1,5 @@
 locals {
-
-
+  
   # ATENÇÃO: ajuste estes valores para o seu contexto.
   # "name" é o nome lógico da Backup Policy na AWS Organizations.
   name             = "org-backup-policy"
