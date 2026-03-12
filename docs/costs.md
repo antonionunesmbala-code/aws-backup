@@ -86,4 +86,3 @@ Maior custo, devido a:
 ## Recomendação
 
 Para publicação do projeto, este documento deve ser apresentado como visão de custo conceptual, não como pricing oficial.  
-Se quiseres, depois posso ajudar-te a montar uma secção com **estimativa mensal por cenário**.
