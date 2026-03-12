@@ -1,9 +1,3 @@
-
----
-
-# 2) `docs/architecture.md`
-
-```md
 # Architecture
 
 ## Visão geral
